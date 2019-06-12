@@ -1,11 +1,11 @@
 // Interactions with the API
 
-const key = "FQm0QmjJdlHI7RfClqfK8JGsJNfZgnIX";
+const key = "3v6XvGUHYLavGMJqTLKlcLBAfAqPUhti";
 
 // get weather information
 const getWeather = async (locID) => {
 
-  const base = 'http://dataservice.accuweather.com/currentconditions/v1/';
+  const base = 'https://dataservice.accuweather.com/currentconditions/v1/';
   const query = `${locID}?apikey=${key}`;
 
   const response = await fetch(base + query);
@@ -19,7 +19,7 @@ const getWeather = async (locID) => {
 // get city information
 const getCity = async (city) => {
 
-  const base = 'http://dataservice.accuweather.com/locations/v1/cities/search';
+  const base = 'https://dataservice.accuweather.com/locations/v1/cities/search';
   const query = `?apikey=${key}&q=${city}`;
 
   const response = await fetch(base + query);
