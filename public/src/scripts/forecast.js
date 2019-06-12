@@ -1,6 +1,6 @@
 // Interactions with the API
-
-const key = "3v6XvGUHYLavGMJqTLKlcLBAfAqPUhti";
+// update API key here: https://developer.accuweather.com/
+const key = "D4XKAQGbA58GSDzXyNJ8dGw3tbW9X6cw";
 
 // get weather information
 const getWeather = async (locID) => {
