@@ -1,3 +1,5 @@
+// Interactions with the API
+
 const key = "npHLG3SDo4DP3wu45A3jtM4aZ4VxBk7x";
 
 // get weather information
@@ -27,9 +29,5 @@ const getCity = async (city) => {
   
 };
 
-getCity('San Francisco').then(data => {
-    return getWeather(data.Key);
-  }).then(data => {
-    console.log(data);
-  }).catch(err => console.log(err));
+
 
