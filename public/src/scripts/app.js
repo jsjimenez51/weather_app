@@ -1,12 +1,12 @@
 // DOM Manipulation
-const cityForm = document.querySelector('form');
-const card = document.querySelector('.card');
-const details = document.querySelector('.details');
-const time = document.querySelector('img.time');
-const icon = document.querySelector('.icon img');
+const cityForm = document.querySelector("form");
+const card = document.querySelector(".card");
+const details = document.querySelector(".details");
+const time = document.querySelector("img.time");
+const icon = document.querySelector(".icon img");
+const forecast = new Forecast();
 
-const updateUI = (data) => {
-
+const updateUI = data => {
   console.log(data);
   // const cityInfo = data.cityInfo;
   // const weather = data.weather;
@@ -16,7 +16,7 @@ const updateUI = (data) => {
 
   // update details template
   details.innerHTML = `
-    <h5 class="my-3">${cityInfo.EnglishName},</br> 
+    <h5 class="my-3">${cityInfo.EnglishName},</br>
       ${cityInfo.Country.EnglishName}</h5>
     <div class="my-3">${weather.WeatherText}</div>
     <div class="display-4 my-4">
@@ -25,33 +25,21 @@ const updateUI = (data) => {
     </div>
   `;
 
-  
   // update the night/day & icon images
   const iconSrc = `img/icons/${weather.WeatherIcon}.svg`;
-  icon.setAttribute('src', iconSrc);
+  icon.setAttribute("src", iconSrc);
 
   // update the night/day & icon images
-  let timeSrc = weather.IsDayTime ? 'img/day.svg' : 'img/night.svg';
-  time.setAttribute('src', timeSrc);
+  let timeSrc = weather.IsDayTime ? "img/day.svg" : "img/night.svg";
+  time.setAttribute("src", timeSrc);
 
   // remove d-none class if present to display info
-  if (card.classList.contains('d-none')) {
-    card.classList.remove('d-none');
+  if (card.classList.contains("d-none")) {
+    card.classList.remove("d-none");
   }
 };
 
-
-// Search Bar Functionality
-const updateCity = async (city) => {
-
-  const cityInfo = await getCity(city);
-  const weather = await getWeather(cityInfo.Key);
-  // object returned { prop: value } is same name == object shorthand
-  return { cityInfo, weather};
-
-};
-
-cityForm.addEventListener('submit', e => {
+cityForm.addEventListener("submit", e => {
   // prevent default action
   e.preventDefault();
 
@@ -60,18 +48,19 @@ cityForm.addEventListener('submit', e => {
   cityForm.reset();
 
   // update UI with new city data
-  updateCity(city)
-  .then(data => updateUI(data))
-  .catch(err => console.log(err));
+  forecast
+    .updateCity(city)
+    .then(data => updateUI(data))
+    .catch(err => console.log(err));
 
   // set into local storage
-  localStorage.setItem('city', city);
-
+  localStorage.setItem("city", city);
 });
 
 // checks local storage for latest search
-if (localStorage.getItem('city')) {
-  updateCity(localStorage.getItem('city'))
+if (localStorage.getItem("city")) {
+  forecast
+    .updateCity(localStorage.getItem("city"))
     .then(data => updateUI(data))
     .catch(err => console.log(err));
-};
+}
